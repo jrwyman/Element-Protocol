@@ -1,0 +1,16 @@
+{
+  "name": "element-protocol",
+  "version": "1.0.0",
+  "main": "/server/server.js",
+  "license": "MIT",
+  "scripts": {
+    "server": "nodemon server/server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "hex-to-binary": "^1.0.1",
+    "nodemon": "^2.0.7",
+    "sha256": "^0.2.0"
+  },
+  "type": "module"
+}
