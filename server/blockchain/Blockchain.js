@@ -31,6 +31,7 @@ function Blockchain() {
     console.log(blockchain.difficulty)
     blockchain.difficulty = adjustDifficulty(newBlock, latestBlock);
     console.log(`BLOCK ${newBlock.blockHeight} MINED WITH A TARGET OF: ${nonce} AND A RESULTING HASH OF: ${newBlock.hash}`);
+    return newBlock;
   }
 
   function adjustDifficulty(newBlock, lastBlock) {
