@@ -19,11 +19,15 @@ class PubSub {
   }
 
   publish({channel, message}) {
-    this.publisher.publish(channel, message);
+    this.subscriber.unsubscribe(channel, () => {
+      this.publisher.publish(channel, message, () => {
+        this.subscriber.subscribe(channel);
+      });
+    })
   }
 
   handleMessage(channel, message) {
-    console.log(`Message received. Channel: ${channel}. Message: ${message}.`)
+    console.log('A block has been mined. Your blockchain has been updated.')
     const parsedMessage = JSON.parse(message);
     if (channel === CHANNELS.BLOCKCHAIN) {
       this.blockchain.replaceChain(parsedMessage)

@@ -7,7 +7,18 @@ function Block(blockHeight, difficulty, timestamp, parentHash, transactions) {
     timestamp: timestamp,
     parentHash: parentHash,
     hash: sha256(blockHeight + difficulty + timestamp + parentHash + transactions),
-    transactions: transactions
+    transactions: transactions,
+    hasValidTransactions,
+  }
+
+  function hasValidTransactions(block) {
+    for (const transaction of block.transactions) {
+      if (!transaction.isValidTransaction()) {
+        return false;
+      }
+    }
+
+    return true;
   }
 
   return block;

@@ -2,16 +2,21 @@ import Block from './Block.js';
 import sha256 from 'sha256';
 import hexToBinary from 'hex-to-binary';
 
+import Transaction from './Transaction.js';
+
 const GENESIS_BLOCK = Block(0, 0, Date.now(), null, []);
 
 function Blockchain() {
   const blockchain = {
     difficulty: 15,
     miningRate: 5000,
+    blockReward: 20,
     blocks: [GENESIS_BLOCK],
     pendingTransactions: [],
     mineBlock,
     checkChainValidity,
+    getBalanceOfAddress,
+    createNewTransaction,
     replaceChain,
   }
 
@@ -30,7 +35,7 @@ function Blockchain() {
     }
     
     blockchain.blocks = incomingChain.blocks;
-    // blockchain.difficulty = adjustDifficulty()
+    blockchain.difficulty = incomingChain.difficulty;
   }
 
   function checkChainValidity() {
@@ -46,16 +51,15 @@ function Blockchain() {
         return false;
       } else if (currentBlock.parentHash !== checkHash(precedingBlock)) {
         return false;
-      } 
-      // else if (!currentBlock.hasValidTransactions(currentBlock)) {
-      //   return false;
-      // }
+      } else if (!currentBlock.hasValidTransactions(currentBlock)) {
+        return false;
+      }
     }
    
     return true;
   }
 
-  function mineBlock() {
+  function mineBlock(minerAddress) {
     const latestBlock = obtainLatestBlock();
     let [hash, nonce] = [hexToBinary(latestBlock.hash), 0];
     while (hash.substring(0, blockchain.difficulty) !== Array(blockchain.difficulty + 1).join("0")) {
@@ -64,8 +68,7 @@ function Blockchain() {
     }
     const newBlock = Block(blockchain.blocks.length, blockchain.difficulty, Date.now(), latestBlock.hash, blockchain.pendingTransactions);
     blockchain.blocks.push(newBlock);
-    blockchain.pendingTransactions = ['PENDING REWARD']
-    console.log(blockchain.difficulty)
+    blockchain.pendingTransactions = [Transaction(null, minerAddress, blockchain.blockReward)];
     blockchain.difficulty = adjustDifficulty(newBlock, latestBlock);
     console.log(`BLOCK ${newBlock.blockHeight} MINED WITH A TARGET OF: ${nonce} AND A RESULTING HASH OF: ${newBlock.hash}`);
     return newBlock;
@@ -77,6 +80,40 @@ function Blockchain() {
     } else if (blockchain.difficulty > 15 && newBlock.timestamp - lastBlock.timestamp > blockchain.miningRate + 500) {
       return blockchain.difficulty - 1
     }
+  }
+
+  function createNewTransaction({ sender, receiver, amount }, privateKey) {
+    const balance = getBalanceOfAddress(sender);
+    if (balance >= amount) {
+      const transaction = Transaction(sender, receiver, amount);
+      transaction.signTransaction(privateKey);
+      blockchain.pendingTransactions.push(transaction);
+      return transaction;
+    } else {
+      return 'Transaction Failed: Insufficient Funds in Wallet';
+    }
+  }
+
+  function getBalanceOfAddress(address) {
+    let balance = 0;
+
+    for (const block of blockchain.blocks) {
+        for (const transaction of block.transactions) {
+          if (transaction.sender === address) {
+            balance -= transaction.amount;
+          } else if (transaction.receiver === address) {
+            balance += transaction.amount;
+          }
+        }
+    }
+
+    for (const transaction of blockchain.pendingTransactions) {
+      if (transaction.sender === address) {
+        balance -= transaction.amount;
+      }
+    }
+
+    return balance;
   }
 
   return blockchain;
