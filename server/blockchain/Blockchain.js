@@ -11,11 +11,47 @@ function Blockchain() {
     blocks: [GENESIS_BLOCK],
     pendingTransactions: [],
     mineBlock,
+    checkChainValidity,
+    replaceChain,
   }
 
   function obtainLatestBlock() {
     const latestBlock = blockchain.blocks[blockchain.blocks.length - 1]
     return latestBlock;
+  }
+
+  function replaceChain(incomingChain) {
+    if (incomingChain.blocks.length <= blockchain.blocks.length) {
+      console.log('incoming chain is not longer than current chain');
+      return;
+    } else if (!checkChainValidity(incomingChain)) {
+      console.log('incoming chain was not valid')
+      return;
+    }
+    
+    blockchain.blocks = incomingChain.blocks;
+  }
+
+  function checkChainValidity() {
+    function checkHash({ blockHeight, difficulty, timestamp, parentHash, transactions}) {
+      return sha256(blockHeight + difficulty + timestamp + parentHash + transactions);
+    }
+
+    for(let i = 1; i < blockchain.blocks.length; i++){
+      const currentBlock = blockchain.blocks[i];
+      const precedingBlock = blockchain.blocks[i-1];
+      
+      if (currentBlock.hash !== checkHash(currentBlock)) {
+        return false;
+      } else if (currentBlock.parentHash !== checkHash(precedingBlock)) {
+        return false;
+      } 
+      // else if (!currentBlock.hasValidTransactions(currentBlock)) {
+      //   return false;
+      // }
+    }
+   
+    return true;
   }
 
   function mineBlock() {
