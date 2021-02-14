@@ -30,6 +30,7 @@ function Blockchain() {
     }
     
     blockchain.blocks = incomingChain.blocks;
+    // blockchain.difficulty = adjustDifficulty()
   }
 
   function checkChainValidity() {
@@ -73,7 +74,7 @@ function Blockchain() {
   function adjustDifficulty(newBlock, lastBlock) {
     if (newBlock.timestamp - lastBlock.timestamp < blockchain.miningRate - 500) {
       return blockchain.difficulty + 1
-    } else if (blockchain.difficulty > 1 && newBlock.timestamp - lastBlock.timestamp > blockchain.miningRate + 500) {
+    } else if (blockchain.difficulty > 15 && newBlock.timestamp - lastBlock.timestamp > blockchain.miningRate + 500) {
       return blockchain.difficulty - 1
     }
   }

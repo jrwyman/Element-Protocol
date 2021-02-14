@@ -1,5 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import axios from 'axios';
 
 import Blockchain from './blockchain/Blockchain.js'
 import PubSub from './blockchain/PubSub.js';
@@ -8,10 +9,13 @@ const app = express();
 const ElementProtocol = Blockchain();
 const P2PClient = new PubSub(ElementProtocol);
 
+const DEFAULT_PORT = 5000;
+const ROOT_NODE_ADDRESS = `http://localhost:${DEFAULT_PORT}`;
+
 app.use(bodyParser.json());
 
 app.get('/explore', (req, res) => {
-  res.json(ElementProtocol.blocks);
+  res.json(ElementProtocol);
 });
 
 app.post('/miner', (req, res) => {
@@ -20,7 +24,14 @@ app.post('/miner', (req, res) => {
   res.json(newBlock);
 });
 
-const DEFAULT_PORT = 5000;
+async function syncBlockchain() {
+  const syncChain = await axios.get(`${ROOT_NODE_ADDRESS}/explore`);
+  const rootChain = syncChain.data;
+  ElementProtocol.replaceChain(rootChain);
+}
+
+syncBlockchain()
+
 let PEER_PORT;
 
 if (process.env.GENERATE_PEER_PORT === 'true') {
