@@ -21,10 +21,10 @@ app.get('/explore', (req, res) => {
   res.json(ElementProtocol);
 });
 
-app.post('/miner', (req, res) => {
-  const newBlock = ElementProtocol.mineBlock(pub1);
+app.post('/miner', async (req, res) => {
+  const newBlock = await ElementProtocol.mineBlock(pub1);
   P2PClient.broadcastChain();
-  res.json(newBlock);
+  res.send(newBlock);
 });
 
 // app.post('/transact', (req, res) => {
