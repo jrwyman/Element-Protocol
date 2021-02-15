@@ -1,15 +1,17 @@
 import Block from './Block.js';
 import sha256 from 'sha256';
 import hexToBinary from 'hex-to-binary';
+// import axios from 'axios';
 
 import Transaction from './Transaction.js';
+import { hasValidTransactions } from '../util/blockchain-util.js';
 
 const GENESIS_BLOCK = Block(0, 0, Date.now(), null, []);
 
 function Blockchain() {
   const blockchain = {
     difficulty: 15,
-    miningRate: 5000,
+    miningRate: 10000,
     blockReward: 20,
     blocks: [GENESIS_BLOCK],
     pendingTransactions: [],
@@ -33,12 +35,14 @@ function Blockchain() {
       console.log('incoming chain was not valid')
       return;
     }
-    
+    // console.log(incomingChain);
+    // console.log(blockchain.blocks);
     blockchain.blocks = incomingChain.blocks;
+    // console.log(blockchain.blocks);
     blockchain.difficulty = incomingChain.difficulty;
   }
 
-  function checkChainValidity() {
+  function checkChainValidity(blockchain) {
     function checkHash({ blockHeight, difficulty, timestamp, parentHash, transactions}) {
       return sha256(blockHeight + difficulty + timestamp + parentHash + transactions);
     }
@@ -51,7 +55,7 @@ function Blockchain() {
         return false;
       } else if (currentBlock.parentHash !== checkHash(precedingBlock)) {
         return false;
-      } else if (!currentBlock.hasValidTransactions(currentBlock)) {
+      } else if (!hasValidTransactions(currentBlock)) {
         return false;
       }
     }
@@ -59,7 +63,7 @@ function Blockchain() {
     return true;
   }
 
-  function mineBlock(minerAddress) {
+  async function mineBlock(minerAddress) {    // ADD NONCE TO HASHING FUNCTION SO IT CAN BE VERIFIED BY checkChainValidity() FUNCTION
     const latestBlock = obtainLatestBlock();
     let [hash, nonce] = [hexToBinary(latestBlock.hash), 0];
     while (hash.substring(0, blockchain.difficulty) !== Array(blockchain.difficulty + 1).join("0")) {
@@ -75,9 +79,9 @@ function Blockchain() {
   }
 
   function adjustDifficulty(newBlock, lastBlock) {
-    if (newBlock.timestamp - lastBlock.timestamp < blockchain.miningRate - 500) {
+    if (newBlock.timestamp - lastBlock.timestamp < blockchain.miningRate - 1000) {
       return blockchain.difficulty + 1
-    } else if (blockchain.difficulty > 15 && newBlock.timestamp - lastBlock.timestamp > blockchain.miningRate + 500) {
+    } else if (blockchain.difficulty > 15 && newBlock.timestamp - lastBlock.timestamp > blockchain.miningRate + 1000) {
       return blockchain.difficulty - 1
     }
   }

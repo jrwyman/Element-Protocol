@@ -27,10 +27,9 @@ class PubSub {
   }
 
   handleMessage(channel, message) {
-    console.log('A block has been mined. Your blockchain has been updated.')
     const parsedMessage = JSON.parse(message);
     if (channel === CHANNELS.BLOCKCHAIN) {
-      this.blockchain.replaceChain(parsedMessage)
+      this.blockchain.replaceChain(parsedMessage);
     }
   }
 
