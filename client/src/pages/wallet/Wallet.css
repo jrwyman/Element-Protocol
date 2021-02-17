@@ -1,0 +1,17 @@
+.wallet-header {
+  color: white;
+}
+
+.wallet-generator {
+  background-color: white;
+  margin-right: 10px;
+  border-radius: 5px;
+  overflow-wrap:  break-word;
+  word-break: break-all;
+}
+
+.wallet-info {
+  background-color: white;
+  margin-left: 10px;
+  border-radius: 5px;
+}

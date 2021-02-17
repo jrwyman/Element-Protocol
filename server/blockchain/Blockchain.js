@@ -10,7 +10,7 @@ const GENESIS_BLOCK = Block(0, 0, Date.now(), null, []);
 
 function Blockchain() {
   const blockchain = {
-    difficulty: 15,
+    difficulty: 10,
     miningRate: 10000,
     blockReward: 20,
     blocks: [GENESIS_BLOCK],
@@ -35,10 +35,7 @@ function Blockchain() {
       console.log('incoming chain was not valid')
       return;
     }
-    // console.log(incomingChain);
-    // console.log(blockchain.blocks);
     blockchain.blocks = incomingChain.blocks;
-    // console.log(blockchain.blocks);
     blockchain.difficulty = incomingChain.difficulty;
   }
 
@@ -71,6 +68,7 @@ function Blockchain() {
       hash = hexToBinary(sha256(hash, nonce.toString()));
     }
     const newBlock = Block(blockchain.blocks.length, blockchain.difficulty, Date.now(), latestBlock.hash, blockchain.pendingTransactions);
+    newBlock.minedBy = minerAddress;
     blockchain.blocks.push(newBlock);
     blockchain.pendingTransactions = [Transaction(null, minerAddress, blockchain.blockReward)];
     blockchain.difficulty = adjustDifficulty(newBlock, latestBlock);

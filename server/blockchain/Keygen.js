@@ -7,11 +7,10 @@ function Keygen() {
   const publicKey = key.getPublic('hex');
   const privateKey = key.getPrivate('hex');
 
-  console.log();
-  console.log('Your public key:', publicKey);
-
-  console.log();
-  console.log('Your private key', privateKey);
+  return {
+    publicKey: publicKey,
+    privateKey: privateKey,
+  }
 }
 
 Keygen();

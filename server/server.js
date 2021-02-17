@@ -2,8 +2,9 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import axios from 'axios';
 
-import Blockchain from './blockchain/Blockchain.js'
+import Blockchain from './blockchain/Blockchain.js';
 import PubSub from './blockchain/PubSub.js';
+import Keygen from './blockchain/Keygen.js';
 
 const app = express();
 const ElementProtocol = Blockchain();
@@ -25,6 +26,11 @@ app.post('/miner', async (req, res) => {
   const newBlock = await ElementProtocol.mineBlock(pub1);
   P2PClient.broadcastChain();
   res.send(newBlock);
+});
+
+app.get('/keygen', (req, res) => {
+  const KeyGenerator = Keygen();
+  res.json(KeyGenerator);
 });
 
 // app.post('/transact', (req, res) => {

@@ -36,7 +36,7 @@ function Transaction(sender, receiver, amount) {
 
     const publicKey = ec.keyFromPublic(transaction.sender, 'hex');
 	  return publicKey.verify(createTransactionHash(), transaction.signature);
-}
+  }
 
   return transaction;
 }
