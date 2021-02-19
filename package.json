@@ -4,6 +4,7 @@
   "main": "/server/server.js",
   "license": "MIT",
   "scripts": {
+    "start": "node server/server.js",
     "server": "yarn run redis-server && nodemon server/server.js",
     "server-peer": "cross-env GENERATE_PEER_PORT='true' nodemon server/server.js",
     "redis-server": "redis-server --daemonize yes"
