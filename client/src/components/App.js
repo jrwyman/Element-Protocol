@@ -1,7 +1,7 @@
 import { Route, Switch } from 'react-router-dom';
 
 import Nav from './nav/Nav';
-import Home from '../pages/home/Home';
+import Miner from '../pages/miner/Miner';
 import Explorer from '../pages/explorer/Explorer';
 import Wallet from '../pages/wallet/Wallet';
 import './App.css';
@@ -11,8 +11,8 @@ function App() {
     <div className="App">
       <Nav />
       <Switch>
-        <Route exact path="/" component={Home} />
         <Route exact path="/explorer" component={Explorer} />
+        <Route exact path="/miner" component={Miner} />
         <Route exact path="/wallet" component={Wallet} />
       </Switch>
     </div>

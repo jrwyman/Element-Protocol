@@ -13,8 +13,8 @@ function Nav() {
         </div>
         <div className="col nav-links">
           <div className="row">
-            <Link className="col nav-link" to="/">Home</Link>
             <Link className="col nav-link" to="/explorer">Explorer</Link>
+            <Link className="col nav-link" to="/miner">Miner</Link>
             <Link className="col nav-link" to="/wallet">Wallet</Link>
           </div>
         </div>

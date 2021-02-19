@@ -61,7 +61,7 @@ function Blockchain() {
   }
 
   async function mineBlock(minerAddress) {    // ADD NONCE TO HASHING FUNCTION SO IT CAN BE VERIFIED BY checkChainValidity() FUNCTION
-    const latestBlock = obtainLatestBlock();
+    const latestBlock = await obtainLatestBlock();
     let [hash, nonce] = [hexToBinary(latestBlock.hash), 0];
     while (hash.substring(0, blockchain.difficulty) !== Array(blockchain.difficulty + 1).join("0")) {
 		  nonce++;
@@ -78,9 +78,11 @@ function Blockchain() {
 
   function adjustDifficulty(newBlock, lastBlock) {
     if (newBlock.timestamp - lastBlock.timestamp < blockchain.miningRate - 1000) {
-      return blockchain.difficulty + 1
+      return blockchain.difficulty + 1;
     } else if (blockchain.difficulty > 15 && newBlock.timestamp - lastBlock.timestamp > blockchain.miningRate + 1000) {
-      return blockchain.difficulty - 1
+      return blockchain.difficulty - 1;
+    } else {
+      return blockchain.difficulty;
     }
   }
 

@@ -22,8 +22,8 @@ app.get('/explore', (req, res) => {
   res.json(ElementProtocol);
 });
 
-app.post('/miner', async (req, res) => {
-  const newBlock = await ElementProtocol.mineBlock(pub1);
+app.post('/miner/:address', async (req, res) => {
+  const newBlock = await ElementProtocol.mineBlock(req.params.address);
   P2PClient.broadcastChain();
   res.send(newBlock);
 });

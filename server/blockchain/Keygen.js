@@ -13,6 +13,4 @@ function Keygen() {
   }
 }
 
-Keygen();
-
 export default Keygen;

@@ -1,0 +1,34 @@
+.miner {
+  color: white;
+}
+
+.miner-address {
+  margin-top: 50px;
+  padding: 15px;
+  font-size: 25px;
+}
+
+.miner-message {
+  margin-top: 50px;
+}
+
+.miner-block {
+  /* background-color: white; */
+  color: black;
+  margin-top: 50px;
+}
+
+.miner-block-info {
+  background-color: white;
+  margin-top: 50px;
+  border-radius: 5px;
+  padding-left: 10px;
+}
+
+.miner-block-header {
+  color: white;
+}
+
+.miner-start {
+  margin-top: 50px;
+}
