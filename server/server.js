@@ -55,20 +55,20 @@ async function syncBlockchain() {
   console.log('Your blockchain has been synced with root chain.');
 }
 
-let PEER_PORT;
+// let PEER_PORT;
 
-if (process.env.GENERATE_PEER_PORT === 'true') {
-  PEER_PORT = DEFAULT_PORT + Math.ceil(Math.random() * 1000);
-}
+// if (process.env.GENERATE_PEER_PORT === 'true') {
+//   PEER_PORT = DEFAULT_PORT + Math.ceil(Math.random() * 1000);
+// }
 
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-const PORT = (PEER_PORT || process.env.PORT || 5000);
+const PORT = (process.env.PORT || 5000); //(PEER_PORT || process.env.PORT || 5000)
 app.listen(PORT, () => {
   console.log(`Server is running on Port: ${PORT}`);
-  if (PORT !== DEFAULT_PORT) {
-    syncBlockchain();
-  }
+  // if (PORT !== DEFAULT_PORT) {
+  //   syncBlockchain();
+  // }
 });
