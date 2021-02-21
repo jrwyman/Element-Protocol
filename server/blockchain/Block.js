@@ -1,4 +1,4 @@
-import sha256 from 'sha256';
+const sha256 = require('sha256');
 
 // import { hasValidTransactions } from '../util/blockchain-util.js';
 
@@ -15,4 +15,4 @@ function Block(blockHeight, difficulty, timestamp, parentHash, transactions) {
   return block;
 }
 
-export default Block;
+module.exports = Block;

@@ -1,11 +1,11 @@
-import * as path from 'path';
-import express from 'express';
-import bodyParser from 'body-parser';
-import axios from 'axios';
+const path = require('path');
+const express = require('express');
+const bodyParser = require('body-parser');
+const axios = require('axios');
 
-import Blockchain from './blockchain/Blockchain.js';
-import PubSub from './blockchain/PubSub.js';
-import Keygen from './blockchain/Keygen.js';
+const Blockchain = require('./blockchain/Blockchain.js');
+const PubSub = require('./blockchain/PubSub.js');
+const Keygen = require('./blockchain/Keygen.js');
 
 const app = express();
 const ElementProtocol = Blockchain();
@@ -16,7 +16,7 @@ const ROOT_NODE_ADDRESS = `http://localhost:${DEFAULT_PORT}`;
 
 app.use(bodyParser.json());
 
-const __dirname = path.resolve();
+// const __dirname = path.resolve();
 
 app.use(express.static(path.join(__dirname, 'build')));
 
@@ -48,12 +48,12 @@ app.get('/balance/:address', (req, res) => {
   res.json(balance);
 });
 
-async function syncBlockchain() {
-  const syncChain = await axios.get(`${ROOT_NODE_ADDRESS}/explore`);
-  const rootChain = syncChain.data;
-  ElementProtocol.replaceChain(rootChain);
-  console.log('Your blockchain has been synced with root chain.');
-}
+// async function syncBlockchain() {
+//   const syncChain = await axios.get(`${ROOT_NODE_ADDRESS}/explore`);
+//   const rootChain = syncChain.data;
+//   ElementProtocol.replaceChain(rootChain);
+//   console.log('Your blockchain has been synced with root chain.');
+// }
 
 // let PEER_PORT;
 

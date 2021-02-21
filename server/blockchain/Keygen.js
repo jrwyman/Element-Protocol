@@ -1,5 +1,4 @@
-import pkg from 'elliptic';
-const { ec: EC } = pkg;
+const EC = require('elliptic').ec;
 const ec = new EC('ed25519');
 
 function Keygen() {
@@ -13,4 +12,4 @@ function Keygen() {
   }
 }
 
-export default Keygen;
+module.exports = Keygen;

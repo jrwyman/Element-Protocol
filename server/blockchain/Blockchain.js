@@ -1,10 +1,10 @@
-import Block from './Block.js';
-import sha256 from 'sha256';
-import hexToBinary from 'hex-to-binary';
+const Block = require('./Block.js');
+const sha256 = require('sha256');
+const hexToBinary = require('hex-to-binary');
 // import axios from 'axios';
 
-import Transaction from './Transaction.js';
-import { hasValidTransactions } from '../util/blockchain-util.js';
+const Transaction = require('./Transaction.js');
+const hasValidTransactions = require('../util/blockchain-util.js');
 
 const GENESIS_BLOCK = Block(0, 0, Date.now(), null, []);
 
@@ -123,4 +123,4 @@ function Blockchain() {
   return blockchain;
 }
 
-export default Blockchain;
+module.exports = Blockchain;

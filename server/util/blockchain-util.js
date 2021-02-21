@@ -1,4 +1,4 @@
-export const hasValidTransactions = (block) => {
+const hasValidTransactions = (block) => {
     for (const transaction of block.transactions) {
       if (!isValidTransaction(transaction)) {
         return false;
@@ -8,7 +8,7 @@ export const hasValidTransactions = (block) => {
     return true;
 }
 
-export const isValidTransaction = (transaction) => {
+const isValidTransaction = (transaction) => {
     if(transaction.sender === null) return true;
 
 	  if(!transaction.signature || transaction.signature.length === 0){
@@ -17,4 +17,9 @@ export const isValidTransaction = (transaction) => {
 
     const publicKey = ec.keyFromPublic(transaction.sender, 'hex');
 	  return publicKey.verify(createTransactionHash(), transaction.signature);
+}
+
+module.exports = {
+  isValidTransaction,
+  hasValidTransactions,
 }

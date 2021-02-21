@@ -1,4 +1,4 @@
-import redis from 'redis';
+const redis = require('redis');
 
 const CHANNELS = {
   BLOCKCHAIN: 'BLOCKCHAIN'
@@ -42,4 +42,4 @@ class PubSub {
   }
 }
 
-export default PubSub;
+module.exports = PubSub;
