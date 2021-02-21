@@ -11,6 +11,7 @@ function App() {
     <div className="App">
       <Nav />
       <Switch>
+        <Route exact path="/" component={Explorer} />
         <Route exact path="/explorer" component={Explorer} />
         <Route exact path="/miner" component={Miner} />
         <Route exact path="/wallet" component={Wallet} />

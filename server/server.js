@@ -4,12 +4,12 @@ const bodyParser = require('body-parser');
 const axios = require('axios');
 
 const Blockchain = require('./blockchain/Blockchain.js');
-const PubSub = require('./blockchain/PubSub.js');
+// const PubSub = require('./blockchain/PubSub.js');
 const Keygen = require('./blockchain/Keygen.js');
 
 const app = express();
 const ElementProtocol = Blockchain();
-const P2PClient = new PubSub(ElementProtocol);
+// const P2PClient = new PubSub(ElementProtocol);
 
 const DEFAULT_PORT = 5000;
 const ROOT_NODE_ADDRESS = `http://localhost:${DEFAULT_PORT}`;
@@ -26,7 +26,7 @@ app.get('/explore', (req, res) => {
 
 app.post('/miner/:address', async (req, res) => {
   const newBlock = await ElementProtocol.mineBlock(req.params.address);
-  P2PClient.broadcastChain();
+  // P2PClient.broadcastChain();
   res.send(newBlock);
 });
 

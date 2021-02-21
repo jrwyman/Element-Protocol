@@ -1,7 +1,6 @@
 const Block = require('./Block.js');
 const sha256 = require('sha256');
 const hexToBinary = require('hex-to-binary');
-// import axios from 'axios';
 
 const Transaction = require('./Transaction.js');
 const hasValidTransactions = require('../util/blockchain-util.js');
