@@ -12,12 +12,18 @@ function Miner() {
   const [minerAddress, setMinerAddress] = useState('');
   const [miningInProgress, setMiningInProgress] = useState(false);
   const [minedBlock, setMinedBlock] = useState(undefined);
+  const [errors, setErrors] = useState([]);
 
   async function mineBlock() {
     setMiningInProgress(true);
-    const block = await axios.post(`/miner/${minerAddress}`)
-    setMiningInProgress(false);
-    setMinedBlock(block.data);
+    if (minerAddress.length === 130) {
+      const block = await axios.post(`/miner/${minerAddress}`)
+      setMiningInProgress(false);
+      setMinedBlock(block.data);
+    } else {
+      setErrors([...errors, 'Invalid Address Length, Must be at Least 130 characters']);
+      setMiningInProgress(false);
+    }
   }
 
   return (
@@ -31,11 +37,20 @@ function Miner() {
             type="text"
             placeholder="Enter your unique public key here"
           />
+          {
+            errors.map((error) => {
+              return <li>{error}</li>
+            })
+          }
         </div>
       </div>
       <div className="row miner-start">
         <div className="col" align="center">
-          <button onClick={mineBlock} className="btn btn-dark w-25">MINE A BLOCK</button>
+          {
+            miningInProgress ?
+            <button onClick={mineBlock} className="btn btn-dark w-25" disabled>MINE A BLOCK</button> :
+            <button onClick={mineBlock} className="btn btn-dark w-25">MINE A BLOCK</button>
+          }
         </div>
       </div>
       <div className="row miner-block">

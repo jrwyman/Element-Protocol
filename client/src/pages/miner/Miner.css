@@ -8,6 +8,11 @@
   font-size: 25px;
 }
 
+.unselectable {
+  background-color: red;
+  user-select: none;
+}
+
 .miner-message {
   margin-top: 50px;
 }
