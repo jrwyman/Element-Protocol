@@ -1,32 +1,101 @@
-.blocks {
-  background-color: rgb(52, 54, 58);
+a {
+  text-decoration: none;
 }
 
-.blocks-header {
+.explorer-info {
+  margin-top: 50px;
+}
+
+.explorer-info-latest-blocks {
   background-color: white;
+  margin: 10px;
   border-radius: 5px;
-  margin-top: 100px;
-  margin-bottom: 10px;
-  padding: 5px;
 }
 
-.blocks-header-text {
+.explorer-info-latest-blocks-header {
+  border-bottom: 1px solid lightgray;
+  padding-left: 20px;
+}
+
+.explorer-info-latest-blocks-blocks {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.block-data {
+  border-bottom: 1px solid lightgray;
+  padding: 10px;
+}
+
+.block-symbol {
+  background-color: rgb(235, 235, 235);
+  border-radius: 5px;
+  font-size: 30px;
+  text-align: center;
+}
+
+.block-stamp {
   margin: auto;
 }
 
-.block {
-  background-color: white;
-  border-radius: 10px;
-  padding: 10px;
-  margin-right: 15px;
+.block-stamp-timestamp {
+  font-size: 10px;
 }
 
-.block-no-margin {
+.block-miner {
+  margin: auto;
+}
+
+.block-reward {
+  margin: auto;
+}
+
+.explorer-info-latest-transactions {
   background-color: white;
-  border-radius: 10px;
+  margin: 10px;
+  border-radius: 5px;
+}
+
+.explorer-info-latest-transactions-header {
+  border-bottom: 1px solid lightgray;
+  padding-left: 20px;
+}
+
+.explorer-info-latest-transactions-transactions {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.transaction-data {
+  border-bottom: 1px solid lightgray;
   padding: 10px;
 }
 
-.minedBy {
-  text-decoration: none;
+.transaction-symbol {
+  background-color: rgb(235, 235, 235);
+  border-radius: 5px;
+  font-size: 30px;
+  text-align: center;
 }
+
+.transaction-stamp {
+  margin: auto;
+}
+
+.transaction-stamp-timestamp {
+  font-size: 10px;
+}
+
+.transaction-sender {
+  margin: auto;
+}
+
+.transaction-parties {
+  margin: auto;
+  text-align: left;
+}
+
+.transaction-reward {
+  margin: auto;
+}
+

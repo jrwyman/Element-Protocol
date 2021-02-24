@@ -11,8 +11,8 @@ const app = express();
 const ElementProtocol = Blockchain();
 // const P2PClient = new PubSub(ElementProtocol);
 
-const DEFAULT_PORT = 5000;
-const ROOT_NODE_ADDRESS = `http://localhost:${DEFAULT_PORT}`;
+// const DEFAULT_PORT = 5000;
+// const ROOT_NODE_ADDRESS = `http://localhost:${DEFAULT_PORT}`;
 
 app.use(bodyParser.json());
 
@@ -22,6 +22,16 @@ app.use(express.static(path.join(__dirname, 'build')));
 
 app.get('/explore', (req, res) => {
   res.json(ElementProtocol);
+});
+
+app.get('/transactions', (req, res) => {
+  const blockchainTransactions = [];
+  for (block of ElementProtocol.blocks) {
+    for (transaction of block.transactions) {
+      blockchainTransactions.push(transaction);
+    }
+  }
+  res.json(blockchainTransactions);
 });
 
 app.post('/miner/:address', async (req, res) => {
@@ -35,12 +45,12 @@ app.get('/keygen', (req, res) => {
   res.json(KeyGenerator);
 });
 
-// app.post('/transact', (req, res) => {
-//   const transaction = ElementProtocol.createNewTransaction({
-//     sender: pub1, receiver: 'no-one', amount: 20 
-//   }, priv1);
-//   res.json(transaction);
-// });
+app.post('/transact', (req, res) => {
+  const transaction = ElementProtocol.createNewTransaction({
+    sender: req.query.sender, receiver: req.query.receiver, amount: req.query.amount, 
+  }, req.query.privateKey);
+  res.json(transaction);
+});
 
 app.get('/balance/:address', (req, res) => {
   const address = req.params.address;

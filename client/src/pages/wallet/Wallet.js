@@ -9,12 +9,33 @@ function Wallet() {
   const [walletAddress, setWalletAddress] = useState('');
 
   const [walletBalance, setWalletBalance] = useState(0);
+
+  const [sendingAddress, setSendingAddress] = useState('');
+
+  const [receivingAddress, setReceivingAddress] = useState('');
+
+  const [sendingAmount, setSendingAmount] = useState(0);
+
+  const [privateKey, setPrivateKey] = useState('');
   
   async function keygen() {
     const Keygen = await axios.get('/keygen');
     setKeys({
       publicKey: Keygen.data.publicKey,
       privateKey: Keygen.data.privateKey,
+    })
+  }
+
+  async function sendTransaction() {
+    await axios({
+      method: 'post',
+      url: '/transact',
+      params: {
+        sender: sendingAddress,
+        receiver: receivingAddress,
+        amount: sendingAmount,
+        privateKey: privateKey,
+      }
     })
   }
 
@@ -50,6 +71,41 @@ function Wallet() {
         <div className="row wallet-balance">
           <div className="col" align="center">
             <h1>BALANCE: {walletBalance} LMN</h1>
+          </div>
+        </div>
+      </div>
+      <div className="row wallet-transactions justify-content-center">
+        <div className="col-6 wallet-transactions-box">
+          <div className="row wallet-transactions-box-input">
+            <input
+              type="text"
+              placeholder="Enter your unique public key"
+              onChange={(e) => setSendingAddress(e.target.value)} 
+            />
+          </div>
+          <div className="row wallet-transactions-box-input">
+            <input
+              type="text"
+              placeholder="Enter the address of the receiving party"
+              onChange={(e) => setReceivingAddress(e.target.value)} 
+            />
+          </div>
+          <div className="row wallet-transactions-box-input">
+            <input
+              type="text"
+              placeholder="Enter the amount to send (LMN)"
+              onChange={(e) => setSendingAmount(e.target.value)} 
+            />
+          </div>
+          <div className="row wallet-transactions-box-input">
+            <input
+              type="text"
+              placeholder="Enter your unique private key"
+              onChange={(e) => setPrivateKey(e.target.value)}
+            />
+          </div>
+          <div className="row wallet-transactions-box-input">
+            <button type="submit" className="btn btn-dark" onClick={sendTransaction}>SEND</button>
           </div>
         </div>
       </div>
