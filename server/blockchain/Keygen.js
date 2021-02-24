@@ -1,5 +1,4 @@
-import pkg from 'elliptic';
-const { ec: EC } = pkg;
+const EC = require('elliptic').ec;
 const ec = new EC('ed25519');
 
 function Keygen() {
@@ -7,13 +6,10 @@ function Keygen() {
   const publicKey = key.getPublic('hex');
   const privateKey = key.getPrivate('hex');
 
-  console.log();
-  console.log('Your public key:', publicKey);
-
-  console.log();
-  console.log('Your private key', privateKey);
+  return {
+    publicKey: publicKey,
+    privateKey: privateKey,
+  }
 }
 
-Keygen();
-
-export default Keygen;
+module.exports = Keygen;

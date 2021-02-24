@@ -1,6 +1,5 @@
-import pkg from 'elliptic';
-import sha256 from 'sha256';
-const { ec: EC } = pkg;
+const sha256 = require('sha256');
+const EC = require('elliptic').ec;
 const ec = new EC('ed25519');
 
 function Transaction(sender, receiver, amount) {
@@ -36,9 +35,9 @@ function Transaction(sender, receiver, amount) {
 
     const publicKey = ec.keyFromPublic(transaction.sender, 'hex');
 	  return publicKey.verify(createTransactionHash(), transaction.signature);
-}
+  }
 
   return transaction;
 }
 
-export default Transaction;
+module.exports = Transaction;

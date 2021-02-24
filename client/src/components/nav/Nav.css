@@ -1,0 +1,32 @@
+.nav {
+  background-color: rgb(45, 46, 49);
+  position: sticky;
+  padding: 10px;
+  border-bottom: solid white 1px;
+}
+
+.nav-logo {
+  font-family: serif;
+  color: white;
+  margin-left: 75px;
+}
+
+.logo {
+  margin: auto;
+}
+
+.nav-links {
+  margin: auto;
+}
+
+.nav-link {
+  color: white;
+}
+
+.nav-link:hover {
+  color: black;
+}
+
+.fancy-letter {
+  color: red;
+}

@@ -1,0 +1,61 @@
+.wallet-header {
+  margin-top: 200px;
+  color: white;
+  text-align: center;
+}
+
+.wallet-info {
+  color: white;
+  margin-top: 100px;
+}
+
+.wallet-info-balance-input {
+  padding: 15px;
+  font-size: 25px;
+}
+
+.wallet-info-buttons {
+  margin-top: 20px;
+}
+
+.wallet-balance {
+  color: white;
+  margin-top: 50px;
+}
+
+.wallet-generator {
+  margin-top: 100px;
+  border-radius: 5px;
+  overflow-wrap:  break-word;
+  word-break: break-all;
+}
+
+.wallet-generator-private-label {
+  color: black;
+  text-align: center;
+  background-color: lightgray;
+  border-radius: 5px;
+}
+
+.wallet-generator-public-label {
+  color: black;
+  text-align: center;
+  background-color: lightgray;
+  border-radius: 5px;
+}
+
+.generate-button {
+  margin-top: 20px;
+}
+
+.wallet-generator-public {
+  margin-right: 10px;
+  color: white;
+  border-radius: 5px;
+}
+
+.wallet-generator-private {
+  margin-left: 10px;
+  color: white;
+  border-radius: 5px;
+}

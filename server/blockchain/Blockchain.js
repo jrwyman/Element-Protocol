@@ -1,16 +1,15 @@
-import Block from './Block.js';
-import sha256 from 'sha256';
-import hexToBinary from 'hex-to-binary';
-// import axios from 'axios';
+const Block = require('./Block.js');
+const sha256 = require('sha256');
+const hexToBinary = require('hex-to-binary');
 
-import Transaction from './Transaction.js';
-import { hasValidTransactions } from '../util/blockchain-util.js';
+const Transaction = require('./Transaction.js');
+const hasValidTransactions = require('../util/blockchain-util.js');
 
 const GENESIS_BLOCK = Block(0, 0, Date.now(), null, []);
 
 function Blockchain() {
   const blockchain = {
-    difficulty: 15,
+    difficulty: 10,
     miningRate: 10000,
     blockReward: 20,
     blocks: [GENESIS_BLOCK],
@@ -35,10 +34,7 @@ function Blockchain() {
       console.log('incoming chain was not valid')
       return;
     }
-    // console.log(incomingChain);
-    // console.log(blockchain.blocks);
     blockchain.blocks = incomingChain.blocks;
-    // console.log(blockchain.blocks);
     blockchain.difficulty = incomingChain.difficulty;
   }
 
@@ -64,13 +60,14 @@ function Blockchain() {
   }
 
   async function mineBlock(minerAddress) {    // ADD NONCE TO HASHING FUNCTION SO IT CAN BE VERIFIED BY checkChainValidity() FUNCTION
-    const latestBlock = obtainLatestBlock();
+    const latestBlock = await obtainLatestBlock();
     let [hash, nonce] = [hexToBinary(latestBlock.hash), 0];
     while (hash.substring(0, blockchain.difficulty) !== Array(blockchain.difficulty + 1).join("0")) {
 		  nonce++;
       hash = hexToBinary(sha256(hash, nonce.toString()));
     }
     const newBlock = Block(blockchain.blocks.length, blockchain.difficulty, Date.now(), latestBlock.hash, blockchain.pendingTransactions);
+    newBlock.minedBy = minerAddress;
     blockchain.blocks.push(newBlock);
     blockchain.pendingTransactions = [Transaction(null, minerAddress, blockchain.blockReward)];
     blockchain.difficulty = adjustDifficulty(newBlock, latestBlock);
@@ -80,9 +77,11 @@ function Blockchain() {
 
   function adjustDifficulty(newBlock, lastBlock) {
     if (newBlock.timestamp - lastBlock.timestamp < blockchain.miningRate - 1000) {
-      return blockchain.difficulty + 1
+      return blockchain.difficulty + 1;
     } else if (blockchain.difficulty > 15 && newBlock.timestamp - lastBlock.timestamp > blockchain.miningRate + 1000) {
-      return blockchain.difficulty - 1
+      return blockchain.difficulty - 1;
+    } else {
+      return blockchain.difficulty;
     }
   }
 
@@ -123,4 +122,4 @@ function Blockchain() {
   return blockchain;
 }
 
-export default Blockchain;
+module.exports = Blockchain;
