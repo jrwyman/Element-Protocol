@@ -20,6 +20,10 @@
   margin-top: 20px;
 }
 
+.wallet-transactions-errors {
+  color: white;
+}
+
 .wallet-info-balance-input {
   padding: 15px;
   font-size: 25px;

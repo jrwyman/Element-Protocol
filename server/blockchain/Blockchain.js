@@ -87,11 +87,17 @@ function Blockchain() {
 
   function createNewTransaction({ sender, receiver, amount }, privateKey) {
     const balance = getBalanceOfAddress(sender);
+    if (amount <= 0) return 'Cannot Send Nothing'
+
     if (balance >= amount) {
       const transaction = Transaction(sender, receiver, amount);
       transaction.signTransaction(privateKey);
-      blockchain.pendingTransactions.push(transaction);
-      return transaction;
+      if (transaction.signature) {
+        blockchain.pendingTransactions.push(transaction);
+        return transaction;
+      } else {
+        return 'Invalid Private Key or Transaction Entered'
+      }
     } else {
       return 'Transaction Failed: Insufficient Funds in Wallet';
     }

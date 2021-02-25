@@ -17,6 +17,8 @@ function Wallet() {
   const [sendingAmount, setSendingAmount] = useState(0);
 
   const [privateKey, setPrivateKey] = useState('');
+
+  const [errors, setErrors] = useState('');
   
   async function keygen() {
     const Keygen = await axios.get('/keygen');
@@ -27,7 +29,7 @@ function Wallet() {
   }
 
   async function sendTransaction() {
-    await axios({
+    const transaction = await axios({
       method: 'post',
       url: '/transact',
       params: {
@@ -37,6 +39,9 @@ function Wallet() {
         privateKey: privateKey,
       }
     })
+    if (typeof transaction.data === 'string' && !errors.includes(transaction.data)) {
+      setErrors(transaction.data);
+    }
   }
 
   async function getBalance() {
@@ -106,6 +111,9 @@ function Wallet() {
           </div>
           <div className="row wallet-transactions-box-input">
             <button type="submit" className="btn btn-dark" onClick={sendTransaction}>SEND</button>
+          </div>
+          <div className="wallet-transactions-errors">
+            {errors}
           </div>
         </div>
       </div>
