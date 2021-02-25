@@ -19,7 +19,7 @@ function Transaction(sender, receiver, amount) {
   function signTransaction(privateKey) {
     const signingKey = ec.keyFromPrivate(privateKey);
     if(signingKey.getPublic('hex') !== transaction.sender){
-		  throw new Error('Invalid private key provided for this public key');
+		  return 'Invalid private key provided for this public key';
 	  }
 
 	  const hashTx = createTransactionHash();
