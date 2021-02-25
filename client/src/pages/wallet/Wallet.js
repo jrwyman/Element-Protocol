@@ -41,6 +41,8 @@ function Wallet() {
     })
     if (typeof transaction.data === 'string' && !errors.includes(transaction.data)) {
       setErrors(transaction.data);
+    } else {
+      alert('Transaction Sent!')
     }
   }
 

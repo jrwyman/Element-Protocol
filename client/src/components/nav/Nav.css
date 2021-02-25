@@ -5,10 +5,31 @@
   border-bottom: solid white 1px;
 }
 
+.hamburger-button {
+  background-color: rgb(45, 46, 49);
+  border-color: rgb(45, 46, 49);
+}
+
+.hamburger-button:focus {
+  background-color: rgb(45, 46, 49);
+  border-color: rgb(45, 46, 49);
+}
+
+.hamburger-button:hover {
+  background-color: rgb(45, 46, 49);
+  border-color: rgb(45, 46, 49);
+}
+
 .nav-logo {
   font-family: serif;
   color: white;
   margin-left: 75px;
+}
+
+@media screen and (max-width: 372px) {
+  .nav-logo {
+    margin-left: 20px;
+  }
 }
 
 .logo {
