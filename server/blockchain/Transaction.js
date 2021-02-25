@@ -7,6 +7,7 @@ function Transaction(sender, receiver, amount) {
     sender: sender,
     receiver: receiver,
     amount: amount,
+    timestamp: Date.now(),
     signTransaction,
     isValidTransaction,
   };
