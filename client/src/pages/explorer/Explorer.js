@@ -12,7 +12,7 @@ function Explorer() {
   useEffect(() => {
     fetchBlockchainData();
     fetchTransactionData();
-  }, [blocks, transactions]);
+  }, [blocks.length, transactions.length]);
   
   
   async function fetchBlockchainData() {
@@ -29,7 +29,7 @@ function Explorer() {
   return (
     <div className="container explorer">
       <div className="row explorer-info">
-        <div className="col px-0 explorer-info-latest-blocks">
+        <div className="col-5 px-0 explorer-info-latest-blocks">
           <div className="explorer-info-latest-blocks-header"><strong>Latest Blocks</strong></div>
           <div className="explorer-info-latest-blocks-blocks">
             {
@@ -54,7 +54,7 @@ function Explorer() {
             }
           </div>
         </div>
-        <div className="col px-0 explorer-info-latest-transactions">
+        <div className="col-5 px-0 explorer-info-latest-transactions">
           <div className="explorer-info-latest-transactions-header"><strong>Latest Transactions</strong></div>
           <div className="explorer-info-latest-transactions-transactions">
             {
