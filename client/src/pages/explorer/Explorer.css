@@ -13,6 +13,10 @@ a {
   padding: 10px;
 }
 
+.explorer-header-data-info {
+  margin-left: 10px;
+}
+
 .explorer-header-data-block {
   border-right: 1px solid lightgray;
 }
@@ -52,7 +56,7 @@ a {
 }
 
 .explorer-info {
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .explorer-info-latest-blocks {
@@ -81,16 +85,6 @@ a {
   border-radius: 5px;
   font-size: 30px;
   text-align: center;
-}
-
-@media screen and (max-width: 1199px) {
-  .block-symbol {
-    background-color: rgb(235, 235, 235);
-    border-radius: 5px;
-    font-size: 30px;
-    text-align: center;
-    width: 100%;
-  }
 }
 
 .block-stamp {
@@ -137,16 +131,6 @@ a {
   text-align: center;
 }
 
-@media screen and (max-width: 1199px) {
-  .transaction-symbol {
-    background-color: rgb(235, 235, 235);
-    border-radius: 5px;
-    font-size: 30px;
-    text-align: center;
-    width: 100%;
-  }
-}
-
 .transaction-stamp {
   margin: auto;
 }
@@ -170,5 +154,44 @@ a {
 
 .transaction-reward {
   margin: auto;
+}
+
+.no-border {
+  border: none;
+}
+
+@media screen and (max-width: 376px) {
+  .explorer-header-data-info {
+    font-size: 13px;
+    margin-left: 10px;
+  }
+}
+
+@media screen and (max-width: 325px) {
+  .explorer-header-data-info {
+    margin-top: 7px;
+    font-size: 10px;
+    margin-left: 10px;
+  }
+}
+
+@media screen and (max-width: 1199px) {
+  .transaction-symbol {
+    background-color: rgb(235, 235, 235);
+    border-radius: 5px;
+    font-size: 30px;
+    text-align: center;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 1199px) {
+  .block-symbol {
+    background-color: rgb(235, 235, 235);
+    border-radius: 5px;
+    font-size: 30px;
+    text-align: center;
+    width: 100%;
+  }
 }
 

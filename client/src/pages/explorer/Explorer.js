@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import numeral from 'numeral';
@@ -9,6 +10,8 @@ import {
 import './Explorer.css';
 
 function Explorer() {
+  const isMobile = useMediaQuery({ query: '(max-width: 765px)' });
+
   const [blocks, setBlocks] = useState([]);
   const [difficulty, setDifficulty] = useState(null);
   const [transactions, setTransactions] = useState([]);
@@ -44,7 +47,7 @@ function Explorer() {
                       <div className="col-2" align="center">
                         <div className="explorer-header-data-price-symbol">🚀</div>
                       </div>
-                      <div className="col">
+                      <div className="col explorer-header-data-info">
                         <div>LMN PRICE</div>
                         <div>${numeral(Math.random() + 3).format('0.000')}</div>
                       </div>
@@ -57,7 +60,7 @@ function Explorer() {
                       <div className="col-2" align="center">
                         <div className="explorer-header-data-marketcap-symbol">🌐</div>
                       </div>
-                      <div className="col">
+                      <div className="col explorer-header-data-info">
                         <div>MARKET CAP</div>
                         <div>${numeral(Math.random() + 1245927).format('0,0.000')}</div>
                       </div>
@@ -65,14 +68,14 @@ function Explorer() {
                   </div>
               </div>
             </div>
-            <div className="col explorer-header-data-block">
+            <div className={isMobile ? "col explorer-header-data-block no-border" : "col explorer-header-data-block"}>
               <div className="row">
                 <div className="col explorer-header-data-block-border">
                   <div className="row">
                       <div className="col-2" align="center">
                         <div className="explorer-header-data-difficulty-symbol">⛏️</div>
                       </div>
-                      <div className="col">
+                      <div className="col explorer-header-data-info">
                         <div>DIFFICULTY</div>
                         <div>{difficulty}</div>
                       </div>
@@ -85,7 +88,7 @@ function Explorer() {
                     <div className="col-2" align="center">
                       <div className="explorer-header-data-transactions-symbol">💲</div>
                     </div>
-                    <div className="col">
+                    <div className="col explorer-header-data-info">
                       <div>TRANSACTIONS</div>
                       <div>{transactions.length}</div>
                     </div>
@@ -93,10 +96,10 @@ function Explorer() {
                 </div>
               </div>
             </div>
-            <div className="col explorer-header-data-block-no-border" align="center">
+            <div className="col explorer-header-data-info explorer-header-data-block no-border" align="center">
               <div>TRANSACTIONS PER BLOCK</div>
               <LineChart
-                width={300}
+                width={250}
                 height={70}
                 data={blocks}
                 margin={{
