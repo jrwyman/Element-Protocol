@@ -2,8 +2,57 @@ a {
   text-decoration: none;
 }
 
+.explorer-header {
+  margin-top: 100px;
+}
+
+.explorer-header-data {
+  border-radius: 5px;
+  margin: 10px;
+  background-color: white;
+  padding: 10px;
+}
+
+.explorer-header-data-block {
+  border-right: 1px solid lightgray;
+}
+
+.explorer-header-data-block-border {
+  border-bottom: 1px solid lightgray;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.explorer-header-data-price-symbol {
+  font-size: 30px;
+  margin-right: 10px;
+  color: transparent;
+  text-shadow: 0 0 0 lightblue;
+}
+
+.explorer-header-data-marketcap-symbol {
+  font-size: 30px;
+  margin-right: 10px;
+  color: transparent;
+  text-shadow: 0 0 0 lightblue;
+}
+
+.explorer-header-data-difficulty-symbol {
+  font-size: 30px;
+  margin-right: 10px;
+  color: transparent;
+  text-shadow: 0 0 0 lightblue;
+}
+
+.explorer-header-data-transactions-symbol {
+  font-size: 30px;
+  margin-right: 10px;
+  color: transparent;
+  text-shadow: 0 0 0 lightblue;
+}
+
 .explorer-info {
-  margin-top: 50px;
+  margin-top: 20px;
 }
 
 .explorer-info-latest-blocks {
@@ -108,6 +157,10 @@ a {
 
 .transaction-sender {
   margin: auto;
+}
+
+.transaction-sender-timestamp {
+  font-size: 10px;
 }
 
 .transaction-parties {

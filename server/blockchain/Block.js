@@ -10,6 +10,7 @@ function Block(blockHeight, difficulty, timestamp, parentHash, transactions) {
     parentHash: parentHash,
     hash: sha256(blockHeight + difficulty + timestamp + parentHash + transactions),
     transactions: transactions,
+    transactionCount: transactions.length,
   }
 
   return block;

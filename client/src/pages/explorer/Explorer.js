@@ -1,11 +1,16 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import dayjs from 'dayjs';
+import numeral from 'numeral';
+import {
+  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip,
+} from 'recharts';
 
 import './Explorer.css';
 
 function Explorer() {
   const [blocks, setBlocks] = useState([]);
+  const [difficulty, setDifficulty] = useState(null);
   const [transactions, setTransactions] = useState([]);
   const [blockReward, setBlockReward] = useState(0);
 
@@ -19,6 +24,7 @@ function Explorer() {
     const blockchain = await axios.get('/explore');
     setBlocks(blockchain.data.blocks);
     setBlockReward(blockchain.data.blockReward);
+    setDifficulty(blockchain.data.difficulty);
   }
 
   async function fetchTransactionData() {
@@ -28,6 +34,83 @@ function Explorer() {
   
   return (
     <div className="container explorer">
+      <div className="row explorer-header">
+        <div className="col explorer-header-data">
+          <div className="row">
+            <div className="col explorer-header-data-block">
+              <div className="row">
+                  <div className="col explorer-header-data-block-border">
+                    <div className="row">
+                      <div className="col-2" align="center">
+                        <div className="explorer-header-data-price-symbol">🚀</div>
+                      </div>
+                      <div className="col">
+                        <div>LMN PRICE</div>
+                        <div>${numeral(Math.random() + 3).format('0.000')}</div>
+                      </div>
+                    </div>  
+                  </div>
+              </div>
+              <div className="row">
+                  <div className="col">
+                    <div className="row">
+                      <div className="col-2" align="center">
+                        <div className="explorer-header-data-marketcap-symbol">🌐</div>
+                      </div>
+                      <div className="col">
+                        <div>MARKET CAP</div>
+                        <div>${numeral(Math.random() + 1245927).format('0,0.000')}</div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+            <div className="col explorer-header-data-block">
+              <div className="row">
+                <div className="col explorer-header-data-block-border">
+                  <div className="row">
+                      <div className="col-2" align="center">
+                        <div className="explorer-header-data-difficulty-symbol">⛏️</div>
+                      </div>
+                      <div className="col">
+                        <div>DIFFICULTY</div>
+                        <div>{difficulty}</div>
+                      </div>
+                    </div>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col">
+                  <div className="row">
+                    <div className="col-2" align="center">
+                      <div className="explorer-header-data-transactions-symbol">💲</div>
+                    </div>
+                    <div className="col">
+                      <div>TRANSACTIONS</div>
+                      <div>{transactions.length}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col explorer-header-data-block-no-border" align="center">
+              <div>TRANSACTIONS PER BLOCK</div>
+              <LineChart
+                width={300}
+                height={70}
+                data={blocks}
+                margin={{
+                  top: 5, right: 10, left: 10, bottom: 5,
+                }}
+              >
+                <XAxis dataKey="blockHeight" axisLine={false} interval={1} />
+                <Tooltip labelFormatter={(value) => `Block: ${value}`}/>
+                <Line type="monotone" dataKey="transactionCount" dot={false} />
+              </LineChart>
+            </div>
+          </div>
+        </div>
+      </div>
       <div className="row explorer-info">
         <div className="col-lg-6 col-md-12 px-0 explorer-info-latest-blocks-col">
           <div className="explorer-info-latest-blocks">
@@ -67,6 +150,7 @@ function Explorer() {
                       <div className="col-1 transaction-symbol" align="center">T</div>
                       <div className="col-4 transaction-sender" align="center">
                         <a className="transaction-sender-sentBy" href="">{`${transaction.signature === undefined ? 'Blockchain Reward' : `${transaction.signature.substring(0, 5)}...`}`}</a>
+                        <div className="transaction-sender-timestamp">{dayjs(transaction.timestamp).format('LT')}</div>
                       </div>
                       <div className="col-4 transaction-parties" align="center">
                         <div>From <a href="">{transaction.sender === null ? 'The Source' : `${transaction.sender.substring(0, 5)}...`}</a></div>
@@ -83,22 +167,6 @@ function Explorer() {
           </div>
         </div>
       </div>
-      {/* <div className="row blocks-header">
-        <p className="blocks-header-text" align="center">Latest Blocks</p>
-      </div>
-      <div className="row blocks">
-        {
-          blocks.slice(blocks.length - 6, blocks.length).reverse().map((block) => {
-            return (
-              <div className={blocks.indexOf(block) === blocks.length - 6 ? "col block-no-margin" : "col block"}>
-                <div>Block Height: {block.blockHeight}</div>
-                <div>Difficulty: {block.difficulty}</div>
-                <div>Miner: <a className="minedBy" href="">{block.blockHeight === 0 ? '0' : `${block.minedBy.substring(0, 6)}...`}</a></div>
-              </div>
-            )
-          })
-        }
-      </div> */}
     </div>
   );
 }
