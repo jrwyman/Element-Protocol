@@ -9,6 +9,22 @@ const Keygen = require('./blockchain/Keygen.js');
 
 const app = express();
 const ElementProtocol = Blockchain();
+
+const seedPublic1 = '040cbf73107d4eb91790369880f28c7f8cf7f627a28a08cb28154e0a57bf0470d52435b43db0262c33d4199388275561ea057a8b65b4805820c94ccc2aecc0b114';
+const seedPrivate1 = '0e69ba4f07c057faa58f9acbb4f186c7eeff2937b4418aedb75b49a6b624249f';
+
+const seedPublic2 = '047b116997db3b4a292dc171a2fc98e0ea6f80891ea52066daed364538cf8e2dbf6b965218f4dd0fd21a054ae2e66b8264fd8ee2b1d600823751a05d2061830cf0';
+const seedPrivate2 = '0f3c99e7c5946c3fdbbc4ed8075f0f613b5c68d8e97f924c19881287f6a2b834';
+
+ElementProtocol.mineBlock(seedPublic1);
+ElementProtocol.mineBlock(seedPublic2);
+ElementProtocol.mineBlock(seedPublic1);
+ElementProtocol.mineBlock(seedPublic2);
+ElementProtocol.mineBlock(seedPublic2);
+ElementProtocol.mineBlock(seedPublic1);
+ElementProtocol.mineBlock(seedPublic1);
+
+
 // const P2PClient = new PubSub(ElementProtocol);
 
 // const DEFAULT_PORT = 5000;
