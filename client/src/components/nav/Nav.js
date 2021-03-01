@@ -14,7 +14,7 @@ function Nav() {
           <div className="col nav-logo">
             <h1 className="logo">E<span className="fancy-letter">L</span>E<span className="fancy-letter">M</span>E<span className="fancy-letter">N</span>T</h1>
           </div>
-          <Dropdown className="col drop-down" align="center">
+          <Dropdown className="col drop-down" align="right">
             <Dropdown.Toggle bsPrefix="hamburger-button btn">
               <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
               <i className="fa fa-bars hamburger-icon" />

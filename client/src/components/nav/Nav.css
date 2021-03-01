@@ -21,13 +21,14 @@
 }
 
 .nav-logo {
-  font-family: serif;
+  font-family: Andale Mono, monospace;
   color: white;
   margin-left: 75px;
 }
 
 @media screen and (max-width: 372px) {
   .nav-logo {
+    font-family: Andale Mono, monospace;
     margin-left: 20px;
   }
 }
