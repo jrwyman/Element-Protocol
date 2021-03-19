@@ -2,8 +2,17 @@ a {
   text-decoration: none;
 }
 
-.explorer-header {
+.explorer-headline {
   margin-top: 100px;
+  color: white;
+}
+
+.explorer-headline h1 {
+  font-size: 25px;
+}
+
+.explorer-header {
+ margin-top: 50px;
 }
 
 .explorer-header-data {
