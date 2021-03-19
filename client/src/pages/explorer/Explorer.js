@@ -37,6 +37,9 @@ function Explorer() {
   
   return (
     <div className="container explorer">
+      <div className="row explorer-headline">
+        <h1>The Element Protocol Blockchain Explorer</h1>
+      </div>
       <div className="row explorer-header">
         <div className="col explorer-header-data">
           <div className="row">

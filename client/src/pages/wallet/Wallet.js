@@ -39,7 +39,7 @@ function Wallet() {
         privateKey: privateKey,
       }
     })
-    if (typeof transaction.data === 'string' && !errors.includes(transaction.data)) {
+    if (typeof transaction.data === 'string') {
       setErrors(transaction.data);
     } else {
       alert('Transaction Sent!')
@@ -53,8 +53,8 @@ function Wallet() {
   
   return (
     <div className="container wallet">
-      <div className="row wallet-info">
-        <div className="row">
+      <div className="row">
+        <div className="col wallet-info">
           <div className="row" align="center">
             <div className="col">
               <input
@@ -74,63 +74,61 @@ function Wallet() {
               <button onClick={keygen} className="btn btn-dark">GENERATE WALLET</button>
             </div>
           </div>
+          <div className="row wallet-balance">
+            <div className="col" align="center">
+              <h1>BALANCE: {walletBalance} LMN</h1>
+            </div>
+          </div>
+            <div className="row wallet-transactions-box-input">
+              <input
+                type="text"
+                placeholder="Enter your unique public key"
+                onChange={(e) => setSendingAddress(e.target.value)} 
+              />
+            </div>
+            <div className="row wallet-transactions-box-input">
+              <input
+                type="text"
+                placeholder="Enter the address of the receiving party"
+                onChange={(e) => setReceivingAddress(e.target.value)} 
+              />
+            </div>
+            <div className="row wallet-transactions-box-input">
+              <input
+                type="text"
+                placeholder="Enter the amount to send (LMN)"
+                onChange={(e) => setSendingAmount(e.target.value)} 
+              />
+            </div>
+            <div className="row wallet-transactions-box-input">
+              <input
+                type="text"
+                placeholder="Enter your unique private key"
+                onChange={(e) => setPrivateKey(e.target.value)}
+              />
+            </div>
+            <div className="row wallet-transactions-box-input">
+              <button type="submit" className="btn btn-dark" onClick={sendTransaction}>SEND</button>
+            </div>
+            <div className="wallet-transactions-errors">
+              {errors}
+            </div>
         </div>
-        <div className="row wallet-balance">
-          <div className="col" align="center">
-            <h1>BALANCE: {walletBalance} LMN</h1>
+        <div className="col wallet-generator">
+          <div className="row">
+            <div className="col wallet-generator-public">
+              <div className="row wallet-generator-public-label">
+                <h1>Public</h1>
+              </div>
+              <h1>{keys.publicKey}</h1>
+            </div>
+            <div className="col wallet-generator-private">
+              <div className="row wallet-generator-private-label">
+                <h1>Private</h1>
+              </div>
+              <h1>{keys.privateKey}</h1>
+            </div>
           </div>
-        </div>
-      </div>
-      <div className="row wallet-transactions justify-content-center">
-        <div className="col-6 wallet-transactions-box">
-          <div className="row wallet-transactions-box-input">
-            <input
-              type="text"
-              placeholder="Enter your unique public key"
-              onChange={(e) => setSendingAddress(e.target.value)} 
-            />
-          </div>
-          <div className="row wallet-transactions-box-input">
-            <input
-              type="text"
-              placeholder="Enter the address of the receiving party"
-              onChange={(e) => setReceivingAddress(e.target.value)} 
-            />
-          </div>
-          <div className="row wallet-transactions-box-input">
-            <input
-              type="text"
-              placeholder="Enter the amount to send (LMN)"
-              onChange={(e) => setSendingAmount(e.target.value)} 
-            />
-          </div>
-          <div className="row wallet-transactions-box-input">
-            <input
-              type="text"
-              placeholder="Enter your unique private key"
-              onChange={(e) => setPrivateKey(e.target.value)}
-            />
-          </div>
-          <div className="row wallet-transactions-box-input">
-            <button type="submit" className="btn btn-dark" onClick={sendTransaction}>SEND</button>
-          </div>
-          <div className="wallet-transactions-errors">
-            {errors}
-          </div>
-        </div>
-      </div>
-      <div className="row wallet-generator">
-        <div className="col wallet-generator-public">
-          <div className="row wallet-generator-public-label">
-            <h1>Public</h1>
-          </div>
-          <h1>{keys.publicKey}</h1>
-        </div>
-        <div className="col wallet-generator-private">
-          <div className="row wallet-generator-private-label">
-            <h1>Private</h1>
-          </div>
-          <h1>{keys.privateKey}</h1>
         </div>
       </div>
     </div>
