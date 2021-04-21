@@ -93,13 +93,14 @@ function Blockchain() {
       const transaction = Transaction(sender, receiver, amount);
       transaction.signTransaction(privateKey);
       if (transaction.signature) {
+        transaction.amount = parseFloat(transaction.amount);
         blockchain.pendingTransactions.push(transaction);
         return transaction;
       } else {
         return 'Invalid Private Key or Transaction Entered'
       }
     } else {
-      return 'Transaction Failed: Insufficient Funds in Wallet';
+      return 'Transaction Failed: Incorrect wallet or insufficient funds in wallet address. Try creating a wallet and mining a few blocks.';
     }
   }
 
