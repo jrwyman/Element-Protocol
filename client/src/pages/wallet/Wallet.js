@@ -47,6 +47,10 @@ function Wallet() {
   }
 
   async function getBalance() {
+    if (walletAddress.length < 130) {
+      return alert('Invalid Wallet Address!')
+    }
+
     const balance = await axios.get(`/balance/${walletAddress}`)
     setWalletBalance(balance.data);
   }
@@ -54,80 +58,107 @@ function Wallet() {
   return (
     <div className="container wallet">
       <div className="row">
-        <div className="col wallet-info">
-          <div className="row" align="center">
-            <div className="col">
-              <input
-                className="wallet-info-balance-input w-100 h-100"
-                value={walletAddress}
-                onChange={(e) => setWalletAddress(e.target.value)}
-                type="text"
-                placeholder="Enter your unique public key here"
-              />
-            </div>
+        <div className="col" align="center">
+          <div className="input-group mb-3">
+            <input type="text" onChange={(e) => setWalletAddress(e.target.value)} className="form-control wallet-info-balance-input" placeholder="Enter your unique public key here" aria-label="public-key" aria-describedby="basic-addon1" />
           </div>
-          <div className="row wallet-info-buttons">
-            <div className="col wallet-info-buttons-balance" align="center">
-              <button onClick={getBalance} className="btn btn-dark">CHECK BALANCE</button>
-            </div>
-            <div className="col wallet-info-buttons-keygen" align="center">
-              <button onClick={keygen} className="btn btn-dark">GENERATE WALLET</button>
-            </div>
-          </div>
-          <div className="row wallet-balance">
-            <div className="col" align="center">
-              <h1>BALANCE: {walletBalance} LMN</h1>
-            </div>
-          </div>
-            <div className="row wallet-transactions-box-input">
-              <input
-                type="text"
-                placeholder="Enter your unique public key"
-                onChange={(e) => setSendingAddress(e.target.value)} 
-              />
-            </div>
-            <div className="row wallet-transactions-box-input">
-              <input
-                type="text"
-                placeholder="Enter the address of the receiving party"
-                onChange={(e) => setReceivingAddress(e.target.value)} 
-              />
-            </div>
-            <div className="row wallet-transactions-box-input">
-              <input
-                type="text"
-                placeholder="Enter the amount to send (LMN)"
-                onChange={(e) => setSendingAmount(e.target.value)} 
-              />
-            </div>
-            <div className="row wallet-transactions-box-input">
-              <input
-                type="text"
-                placeholder="Enter your unique private key"
-                onChange={(e) => setPrivateKey(e.target.value)}
-              />
-            </div>
-            <div className="row wallet-transactions-box-input">
-              <button type="submit" className="btn btn-dark" onClick={sendTransaction}>SEND</button>
-            </div>
-            <div className="wallet-transactions-errors">
-              {errors}
-            </div>
-        </div>
-        <div className="col wallet-generator">
-          <div className="row">
-            <div className="col wallet-generator-public">
-              <div className="row wallet-generator-public-label">
-                <h1>Public</h1>
+          <div className="wallet-buttons" align="center">
+            <button onClick={getBalance} className="btn btn-dark wallet-button">CHECK BALANCE</button>
+            
+            <button type="button" className="btn btn-dark wallet-button" data-bs-toggle="modal" data-bs-target="#modal1">
+              GENERATE WALLET
+            </button>
+            <div className="modal fade" id="modal1" tabindex="-1" aria-labelledby="modalLabel1" aria-hidden="true">
+              <div className="modal-dialog">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <h5 className="modal-title" id="modalLabel1">Create A Wallet</h5>
+                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div className="modal-body">
+                    <div className="container">
+                      <button onClick={keygen} className="btn btn-dark wallet-button">New Keypair</button>
+                      <div className="row" align="left">
+                        <div className="col">
+                          <p>Public: {keys.publicKey}</p>
+                        </div>
+                        <div className="col">
+                          <p>Private: {keys.privateKey}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="modal-footer">
+                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  </div>
+                </div>
               </div>
-              <h1>{keys.publicKey}</h1>
             </div>
-            <div className="col wallet-generator-private">
-              <div className="row wallet-generator-private-label">
-                <h1>Private</h1>
+
+            <button type="button" className="btn btn-dark wallet-button" data-bs-toggle="modal" data-bs-target="#modal2">
+              NEW TRANSACTION
+            </button>
+            <div className="modal fade" id="modal2" tabindex="-1" aria-labelledby="modalLabel2" aria-hidden="true">
+              <div className="modal-dialog">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <h5 className="modal-title" id="modalLabel2">Send LMN</h5>
+                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div className="modal-body">
+                    <div className="container">
+                      <div className="row" align="left">
+                        <div className="new-transaction">
+                          <div className="input-group mb-3 wallet-transactions-box-input">
+                            <div className="input-group-prepend">
+                              <span className="input-group-text" id="basic-addon1">Sender</span>
+                            </div>
+                            <input type="text" onChange={(e) => setSendingAddress(e.target.value)} className="form-control" placeholder="Enter your unique public key" aria-label="public-key" aria-describedby="basic-addon1" />
+                          </div>
+                          <div className="input-group mb-3 wallet-transactions-box-input">
+                            <div className="input-group-prepend">
+                              <span className="input-group-text" id="basic-addon1">Receiver</span>
+                            </div>
+                            <input type="text" onChange={(e) => setReceivingAddress(e.target.value)} className="form-control" placeholder="Enter the address of the receiving party" aria-label="receiving-address" aria-describedby="basic-addon1" />
+                          </div>
+                          <div className="input-group mb-3 wallet-transactions-box-input">
+                            <div class="input-group-prepend">
+                              <span className="input-group-text" id="basic-addon1">Amount</span>
+                            </div>
+                            <input type="text" onChange={(e) => setSendingAmount(e.target.value)} className="form-control" placeholder="Enter the amount to send (LMN)" aria-label="send-amount" aria-describedby="basic-addon1" />
+                          </div>
+                          <div className="input-group mb-3 wallet-transactions-box-input">
+                            <div className="input-group-prepend">
+                              <span className="input-group-text" id="basic-addon1">Private Key</span>
+                            </div>
+                            <input type="text" onChange={(e) => setPrivateKey(e.target.value)} className="form-control" placeholder="Enter your unique private key" aria-label="private-key" aria-describedby="basic-addon1" />
+                          </div>
+                          <div className="row wallet-transactions-box-input">
+                            <button type="submit" className="btn btn-dark" onClick={sendTransaction}>SEND</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="modal-footer">
+                    <div className="container">
+                      <div className="row">
+                        <div className="col wallet-transactions-errors" align="left">
+                          {errors}
+                        </div>
+                        <div className="col" align="right">
+                          <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <h1>{keys.privateKey}</h1>
             </div>
+
+          </div>
+          <div className="wallet-balance" align="center">
+            <h1>BALANCE: {walletBalance} LMN</h1>
           </div>
         </div>
       </div>

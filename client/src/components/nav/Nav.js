@@ -20,9 +20,9 @@ function Nav() {
               <i className="fa fa-bars hamburger-icon" />
             </Dropdown.Toggle>
             <Dropdown.Menu className="drop-drop-menu">
-              <Dropdown.Item href="#/">Explorer</Dropdown.Item>
-              <Dropdown.Item href="#/miner">Miner</Dropdown.Item>
-              <Dropdown.Item href="#/wallet">Wallet</Dropdown.Item>
+              <Dropdown.Item href="/">Explorer</Dropdown.Item>
+              <Dropdown.Item href="/miner">Miner</Dropdown.Item>
+              <Dropdown.Item href="/wallet">Wallet</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </div>
